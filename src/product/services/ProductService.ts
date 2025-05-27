@@ -36,3 +36,31 @@ export async function createProductService(request: createInterfaceRequest): Pro
         price: product.dataValues.price
     }
 }
+
+export async function listProductsService(): Promise<productResponse[]> {
+    const products = await Product.findAll();
+    
+    return products.map(product => ({
+        id: product.dataValues.id,
+        name: product.dataValues.name,
+        description: product.dataValues.description,
+        stock: product.dataValues.stock,
+        price: product.dataValues.price
+    }));
+}
+
+export async function getProductService(id: number): Promise<productResponse | null> {
+    const product = await Product.findByPk(id);
+    
+    if (!product) {
+        return null;
+    }
+    
+    return {
+        id: product.dataValues.id,
+        name: product.dataValues.name,
+        description: product.dataValues.description,
+        stock: product.dataValues.stock,
+        price: product.dataValues.price
+    };
+}
