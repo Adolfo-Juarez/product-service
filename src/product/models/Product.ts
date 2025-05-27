@@ -6,6 +6,7 @@ interface ProductAttributes {
     name: string;
     price: number;
     description: string;
+    stock: number;
 }
 
 type ProductCreationAttributes = Omit<ProductAttributes, 'id'>;
@@ -15,7 +16,7 @@ class Product extends Model<ProductAttributes, ProductCreationAttributes> implem
     public name!: string;
     public price!: number;
     public description!: string;
-
+    public stock!: number;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 }
@@ -37,8 +38,14 @@ Product.init({
     description: {
         type: DataTypes.TEXT,
         allowNull: false
+    },
+    stock: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
 }, {
     sequelize,
     tableName: 'products'
 });
+
+export default Product;
