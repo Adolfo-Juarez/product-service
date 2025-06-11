@@ -33,7 +33,7 @@ export default async function ValidateAdminUserMiddleware(req, res, next) {
         // Si la respuesta no es exitosa, retornar error inmediatamente
         if (!response.ok) {
             console.error(`Error de autenticación: ${response.status} ${response.statusText}`);
-            return res.status(401).json({ message: 'Unauthorized', error: `Error de autenticación: ${response.status} ${response.statusText}` });
+            return res.status(401).json({ message: 'Unauthorized', error: `Error de autenticación: ${response.status} ${response.statusText}`, uri: process.env.USER_SERVICE + '/user' });
         }
 
         // Solo intentar parsear JSON si la respuesta fue exitosa
